@@ -19,9 +19,9 @@ plainwhite:
 
   # generate social links in footer
   social_links:
-    twitter: -
+    #twitter: -
     github:  https://github.com/plaps153
-    linkedIn: -
+    #linkedIn: -
     # dribbble: jekyll
     # facebook: jekyll
     # flickr:   jekyll
