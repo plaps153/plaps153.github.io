@@ -1,8 +1,11 @@
 ---
 layout: post
 title:  "[RxSwift] Driver"
+description: "RxSwift Driver에 대한 간단한 설명"
 date:   2020-01-06
-categories: RxSwift
+category: RxSwift
+tags: [RxSwift, Driver, Development]
+comments: true
 ---
 
 사실 Driver의 태생 목적을 정확히 모르고 사용해 왔습니다. 그저 Main thread에서만 동작하는 observable, 그래서 UI 작업에 많이 쓰이는 Observable로만 알고 있습니다.
