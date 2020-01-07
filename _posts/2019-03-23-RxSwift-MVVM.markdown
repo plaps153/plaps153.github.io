@@ -3,6 +3,8 @@ layout: post
 title:  "RxSwift를 활용한 MVVM 구현"
 date:   2020-01-06
 categories: RxSwift, MVVM
+tags: [RxSwift, MVVM, Development]
+comments: true
 ---
 
 RxSwift를 활용한 MVVM 구현은 이미 좋은 예제들이 많이 있습니다. 또 다른 예제를 추가하기 보다는 [기존의 예제]를 활용하여 설명하는 것으로 대체하고자 합니다.
