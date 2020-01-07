@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  “[RxSwift] Driver”
+title:  "[RxSwift] Driver"
 date:   2020-01-06
 categories: RxSwift
 ---
