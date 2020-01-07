@@ -319,8 +319,9 @@ searchText는 subject입니다. 즉 observer도 될 수 있고 observable도 될
 이번 예제에서는 model로 불릴만한 것이 딱히 없습니다. 굳이 뽑자면 github repository의 data라고 볼 수 있겠네요.
 
 # 결론
-View model에서 data를 만들어 내는 부분과 view에서 view model의 data와 tableView를 drive를 이용해 binding시키는 부분이 위의 예제의 핵심이라 할 수 있겠습니다. 저도 분석하다보니 예전보다 더 이해가 잘 되는 것 같네요. 위의 소스는 아래에서 확인할 수 있습니다. 감사합니다.
+View model에서 data를 만들어 내는 부분과 view에서 view model의 data와 tableView를 drive를 이용해 binding시키는 부분이 위의 예제의 핵심이라 할 수 있겠습니다. 저도 분석하다보니 예전보다 더 이해가 잘 되는 것 같네요. 위의 소스는 [여기]에서 확인할 수 있습니다. 감사합니다.
 
+[여기]: https://github.com/plaps153/RxSwiftExample
 [searchResultsController]: https://developer.apple.com/documentation/uikit/uisearchcontroller/1618649-searchresultscontroller?language=objc
 [RxSwift]: https://github.com/ReactiveX/RxSwift
 [BehaviorSubject]: http://reactivex.io/documentation/subject.html
