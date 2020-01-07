@@ -1,0 +1,334 @@
+---
+layout: post
+title:  "RxSwift를 활용한 MVVM 구현"
+date:   2020-01-06
+categories: RxSwift, MVVM
+---
+
+RxSwift를 활용한 MVVM 구현은 이미 좋은 예제들이 많이 있습니다. 또 다른 예제를 추가하기 보다는 [기존의 예제]를 활용하여 설명하는 것으로 대체하고자 합니다.
+
+# 1. 들어가면서
+## MVVM vs MVC
+
+_MVVM 패턴 및 RxSwift에 어느정도 지식이 있으신 분들은 바로 2번으로 넘어가시면 됩니다._
+
+
+MVVM 패턴을 적용하기에 앞서 왜 MVC에서 MVVM으로 페러다임이 이동하고 있는지가 궁금해졌습니다. 무조건 적으로 따르는 것은 제 성격과 맞지 않기에 페러다임의 변화의 이유에 대해서 간단히 살펴보겠습니다.
+
+![MVC vs MVVM]
+*MVVM vs MVC ([출처](https://www.simform.com/mvc-mvp-mvvm-ios-app-development/))*
+
+MVC에서 View와 Model은 긴밀히 연결되어 있습니다. 보기 좋은 구조는 아니지요. View와 Model이 tightly coupled되어 있다는 의미는 view의 갯수에 따라 model의 갯수도 증가되어야 함을 의미합니다. 프로젝트가 커질수록 복잡도는 기하급수적으로 증가하게 됩니다.
+
+MVVM은 view와 model간의 의존성을 완전히 끊어 버렸습니다. View와 Model간의 의존성도 data binding과 command pattern으로 끊을 수 있습니다. View와 bind되어 있는 view model도 최대한 추상화 하여 하나의 view model이 여러 view를 support할 수 있도록 구현해야 합니다.
+
+개인적인 생각으로는 MVVM이 MVC보 낫다 아니다 라고 논쟁할 거리는 아닌 듯 합니다. 앱 사이즈가 작고 구현할 class가 적으면 MVVM구현 보다는 MVC로 구현하는 것이 더 수월할 수 있습니다. 필요에 의해서, 언젠가 MVC가 갖고 있는 단점을 극복하고 싶을 때 MVVM으로 넘어와도 늦지 않다는 생각 입니다.
+
+### RxSwift
+MVVM은 ReactiveX (이하 Rx)에 종속된 design pattern이 아닙니다. 따라서 충분히 Rx 없이도 MVVM pattern을 구현할 수 있습니다. ([RxSwift 없이 MVVM pattern 구현하기]) 하지만 data binding에서 편리함을 제공하기에 좋은 기술을 굳이 마다할 이유는 없습니다.
+
+아래는 Rx 쓰지 않았을 때의 data binding과 썼을 때의 data binding의 차이를 보여 줍니다.
+
+우선 [Rx를 쓰지 않았을 경우]를 살펴 보도록 하겠습니다.
+
+**View Model**
+```swift
+struct LoginViewModel {
+
+    var username: String = "" {
+        didSet {
+            evaluateValidity()
+        }
+    }
+    var password: String = "" {
+        didSet { evaluateValidity()
+        }
+    }
+    var isValid : Bool = "" {
+        didSet {
+            isValidCallback?(isValid: isValid)
+        }
+    }
+    var isValidCallback : ((isValid: Bool) -> Void)?
+
+    func attemptToLogin() {
+          //truncated for space
+    }
+
+    private func evaluateValidity(){
+      isValid = username.characters.count > 0
+            && password.characters.count > 0
+    }
+}
+```
+
+*didSet* *property observer* 를 통해 username 및 password가 변경될 때 마다 validity를 체크하고(evaluateValidity) 해당 함수를 통해 *isValid*가 set되면 *isValidCallBack* callback block을 호출함으로서 View와 Model간 data binding을 완성시킵니다.
+
+**View**
+```swift
+class LoginViewController {
+
+    @IBOutlet var confirmButton: UIButton!
+    var loginViewModel = LoginViewModel()
+
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        loginViewModel.isValidCallback = { [weak self] (isValid) in
+            self?.confirmButton.isEnabled = isValid
+        }
+    }
+}
+```
+View에서는 위와 같이 *isValidCallBack* block이 call되면 *isValid*값에 따라 confirmButton enable / disable 을 set하게 됩니다.
+
+조금 복잡하죠? Rx로 쉽게 해결할 수 있습니다.
+
+**View with Rx**
+```swift
+import RxSwift
+import RxCocoa
+
+class LoginViewController {
+
+    var usernameTextField: UITextField!
+    var passwordTextField: UITextField!
+    var confirmButton: UIBUtton!
+
+    var viewModel = LoginViewModel()
+
+    var disposeBag = DisposeBag()
+
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        usernameTextField.rx.text.bindTo(viewModel.username).addTo(disposeBag)
+        passwordTextField.rx.text.bindTo(viewModel.password).addTo(disposeBag)
+
+        //from the viewModel
+        viewModel.rx.isValid.map{ $0 }
+            .bindTo(confirmButton.rx.isEnabled)
+    }
+}
+```
+
+**View Model with Rx**
+```swift
+import RxSwift
+
+struct LoginViewModel {
+
+    var username = Variable<String>("")
+    var password = Variable<String>("")
+
+    var isValid : Observable<Bool>{
+        return Observable.combineLatest( self.username, self.password)
+        { (username, password) in
+            return username.characters.count > 0
+                        && password.characters.count > 0
+        }
+    }
+}
+
+```
+usernameTextField 및 passwordTextField는 Model의 username, password [subject]에 bind해 줍니다. 이렇게 하면 usernameTextField passwordTextField의 값이 변화될 때 마다 변화된 값이 Model의 username, password에 쉽게 말해 observe 가능한 형태로 저장됩니다.
+
+밑에 Model에서 username과 password를 observing함으로서 해당 값의 valid 유무를 observable형태로 return하게 됩니다. (말이 좀 어렵죠? [RxSwift]에 대한 지식이 좀 필요합니다.)
+
+view는 isValid만 observing하면서 isValid 값에 따라서 enable / disable을 변경하면 되겠네요.
+
+일단 들어가기 전 알아야 할 기본 지식에 대해 다루어봤습니다. 아직 본론으로 들어가지도 않았는데 벌써 지치네요. :)
+
+
+# 2. Deep dive into the code
+## ViewController
+
+우선 *ViewController.swift* 부터 살펴보겠습니다. 이 부분은 MVVM의 View에 해당합니다.
+
+```swift
+import UIKit
+import RxSwift
+import RxCocoa
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var tableView: UITableView!
+    
+    // 1
+    let searchController = UISearchController(searchResultsController: nil)
+    
+    // 2
+    var searchBar: UISearchBar { return searchController.searchBar }
+    
+    // 3
+    var viewModel = ViewModel()
+    
+    // 4
+    let disposeBag = DisposeBag()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // 5
+        configureSearchController()
+
+        // 6
+        viewModel.data
+            .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, repository, cell in
+                cell.textLabel?.text = repository.repoName
+                cell.detailTextLabel?.text = repository.repoURL
+            }
+            .addDisposableTo(disposeBag)
+        
+        // 7
+        searchBar.rx.text.orEmpty
+            .bind(to: viewModel.searchText)
+            .disposed(by: disposeBag)
+        
+        // 8
+        viewModel.data.asDriver()
+            .map { "\($0.count) Repositories" }
+            .drive(navigationItem.rx.title)
+            .disposed(by: disposeBag)
+    }
+   
+    func configureSearchController() {
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchBar.showsCancelButton = true
+        searchBar.text = "NavdeepSinghh"
+        searchBar.placeholder = "Enter GitHub ID, e.g., \"NavdeepSinghh\""
+        tableView.tableHeaderView = searchController.searchBar
+        definesPresentationContext = true
+    }
+}
+
+```
+
+*ViewController.swift* 에서는 아래의 작업들이 진행됩니다.
+1. searchController 생성 ([searchResultsController])를 nil로 설정한다는 것은 현재 viewController에 result를 표시한다는 것 입니다. 물론 직접 result를 표시해줘야 합니다. **6번 참고**)
+2. searchBar 변수 (**1번**에서 생성된 searchController로 부터 가져옵니다.)
+3. viewModel 변수 생성
+4. disposeBag 변수 생성
+5. searchController 초기화 및 searchBar를 tableView의 header에 붙이는 작업
+6. viewModel의 data와 tableView를 bind하여 data변경에 따라 tableView를 update하는 작업
+	- View와 ViewModel간 data binding과 관련된 부분 
+7. searchBar에 입력되는 text 정보를 view model의 searchText [subject]에 bind하는 과정. 
+	- 이 부분은 model을 업데이트 하기 위한 bind작업이라 볼 수 있겠네요. 추후 설명하겠습니다.
+8. View Model에서 얻어온 data의 값으로 navigation의 title을 set하는 부분입니다.
+
+아무래도 가장 중요한 부분은 6번일 것같습니다. View 와 View Model간 data binding이 되는 부분입니다.
+
+6번 소스를 좀 더 깊이있게 살펴보겠습니다.
+
+```swift
+viewModel.data
+    .drive(tableView.rx.items(cellIdentifier: "Cell")) { _, repository, cell in
+        cell.textLabel?.text = repository.repoName
+        cell.detailTextLabel?.text = repository.repoURL
+    }
+    .addDisposableTo(disposeBag)
+```
+
+여기서 제 식대로 설명을 해보겠습니다. 위의 소스는 [driver]를 사용해 **tableView.rx.items(cellIdentifier: "Cell")** UI를 drive (구동) 시키려 합니다. 물론 그 tableView를 구동시키기 위한 driver는 viewModel의 data입니다. (그래서 viewModel의 data는 Driver를 return 하는 것 입니다.) 좀 이해가 되시나요? 이해가 좀 어려우신 분은 위의 driver 포스팅에 **Driver 정의** 부분을 참고해 주세요.
+
+
+## View Model
+
+```swift
+import RxSwift
+import RxCocoa
+
+struct ViewModel {
+	// 1
+    let searchText: BehaviorSubject<String> = BehaviorSubject(value: "")
+
+	// 2
+    lazy var data: Driver<[Repository]> = {
+        return self.searchText
+            .asObservable()
+            .throttle(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+            .distinctUntilChanged()
+            .flatMapLatest(ViewModel.repositoriesBy(_:))
+            .asDriver(onErrorJustReturn: [])
+    }()
+
+	// 3
+    static func repositoriesBy(_ githubID: String) -> Observable<[Repository]> {
+        guard !githubID.isEmpty,
+            let url = URL(string: "https://api.github.com/users/\(githubID)/repos") else {
+                return Observable.just([])
+        }
+
+        return URLSession.shared.rx.json(url: url)
+            .retry(3)
+            //.catchErrorJustReturn([])
+            .map(parse)
+    }
+
+	// 4
+    static func parse(json: Any) -> [Repository] {
+        guard let items = json as? [[String: Any]]  else {
+            return []
+        }
+
+        var repositories = [Repository]()
+
+        items.forEach{
+            guard let repoName = $0["name"] as? String,
+                let repoURL = $0["html_url"] as? String else {
+                    return
+            }
+            repositories.append(Repository(repoName: repoName, repoURL: repoURL))
+        }
+        return repositories
+    }
+}
+```
+
+Model은 4부분으로 나누어 볼 수 있을 것 같습니다. 각 부분을 살펴보면
+1. searchText를 BehaviorSubject형 변수로 선언하였습니다. [BehaviorSubject]이니 초기값이 필요하겠죠? 빈 string ""을 넣어 줍니다.
+2. dataDriver를 만드는 부분 입니다. 어떤 UI를 구동(drive)시킬 data입니다. 뒤에 좀 더 자세히 살펴보겠습니다.
+3. 4번은 입력된 string 기반으로 git 에서 repository data를 얻어오는 부분 입니다. 이부분 소스는 어렵지 않으니 분석은 생략하겠습니다.
+
+아래 data driver를 얻어오는 부분을 좀 더 깊이있게 보겠습니다.
+
+```swift
+lazy var data: Driver<[Repository]> = {
+    return self.searchText
+        .asObservable()
+        .throttle(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+        .distinctUntilChanged()
+        .flatMapLatest(ViewModel.repositoriesBy(_:))
+        .asDriver(onErrorJustReturn: [])
+}()
+```
+searchText는 subject입니다. 즉 observer도 될 수 있고 observable도 될 수 있습니다. 여기서는 observable로 쓸 것 입니다. 즉 관찰을 하겠다는 거죠. 여기 소스가 좀 복잡하게 보이는 이유는 rx의 여러가지 기술?이 쓰여서 입니다. Driver, Subject, Operators 등 rx를 제대로 알고있지 않아면 이해하기 쉽진 않을 것 같네요. 차근차근 보겠습니다.
+
+1. 우선 **data**는 **Driver<[Repository]>** 를 return 하는 **lazy computed property**  입니다. 처음 사용될 때 1번 연산이 되며, 한번 연산을 하면 그 다음 부터는 메모리에 올라와 있는 것을 재사용합니다. 당연히 매번 연산이 필요한 computed property에는 lazy를 사용하지 말아야 겠죠?
+
+2. data는 searchText를 기반으로 얻어 옵니다. searchText를 observable형태로 바꾸고
+
+3. **throttle**을 이용해서 명시된 1초 안에 2개의 element가 연속되어 emit되지 않도록 보장합니다.
+
+4. [**distinctUntilChanged()**] operator를 통해 값이 변화되었을 때만 emit하도록 하고
+
+5. [**flatMapLatest**]를 통해 연속된 element가 들어올 때 가장 마지막 element를 대상으로 새로운 observable을 만들도록 합니다.
+
+6. 그리고 asDriver로 해당 observable을 driver로 변형시켜 return 합니다. 
+
+
+## Model
+이번 예제에서는 model로 불릴만한 것이 딱히 없습니다. 굳이 뽑자면 github repository의 data라고 볼 수 있겠네요.
+
+# 결론
+View model에서 data를 만들어 내는 부분과 view에서 view model의 data와 tableView를 drive를 이용해 binding시키는 부분이 위의 예제의 핵심이라 할 수 있겠습니다. 저도 분석하다보니 예전보다 더 이해가 잘 되는 것 같네요. 위의 소스는 아래에서 확인할 수 있습니다. 감사합니다.
+
+[searchResultsController]: https://developer.apple.com/documentation/uikit/uisearchcontroller/1618649-searchresultscontroller?language=objc
+[RxSwift]: https://github.com/ReactiveX/RxSwift
+[BehaviorSubject]: http://reactivex.io/documentation/subject.html
+[subject]: http://reactivex.io/documentation/subject.html
+[Rx를 쓰지 않았을 경우]: https://academy.realm.io/posts/slug-max-alexander-mvvm-rxswift/
+[기존의 예제]: https://medium.com/@navdeepsingh_2336/creating-an-ios-app-with-mvvm-and-rxswift-in-minutes-b8800633d2e8
+[driver]: https://plaps153.github.io/rxswift/2020/01/06/RxSwift-Driver.html
+[MVC vs MVVM]: https://www.simform.com/wp-content/uploads/2018/01/MVC-vs-MVP-vs-MVVM-for-ios-development-.png
+[RxSwift 없이 MVVM pattern 구현하기]: https://www.raywenderlich.com/34-design-patterns-by-tutorials-mvvm
+[**distinctUntilChanged()**]: http://reactivex.io/documentation/operators/distinct.html
+[**flatMapLatest**]: http://reactivex.io/documentation/operators/flatmap.html
