@@ -1,48 +1,19 @@
-plugins: [jekyll-paginate]
+name: Michael Lanyon's Blog
+url: 'https://blog.lanyonm.org'
+description: 'Notes and thoughts from LanyonM'
 
-permalink: /:categories/:title/
-
-highlighter: rouge
+exclude: [Gemfile, Gemfile.lock, README.md]
 markdown: kramdown
-kramdown:
-  input:  GFM
-  syntax_highlighter: rouge
 
+author: 'Michael Lanyon'
+disqus_shortname: lanyonm
+google_analytics: UA-42209870-1
 
-paginate: 10
-paginate_path: "page/:num"
-baseurl: ""
+gems:
+  # https://help.github.com/articles/atom-rss-feeds-for-github-pages/
+  - jekyll-gist
+  - jekyll-sitemap
 
-
-
-defaults:
-  -
-    scope:
-      path: ""
-      type: posts
-    values:
-      layout: post
-      styles : [highlight.css,gitment.css,post.css]
-      scripts : [gitment.js, post.js]
-
-
-
-title: "bit-ranger"
-email: sincerebravefight@gmail.com
-description: ""
-github:
-  username: bit-ranger
-swiftype:
-  searchId: iXZyPokVfxFaBTvi64Y6
-gitment:
-    repo: blog
-    client_id: a6fb73b3e790e234bab8
-    client_secret: cc10aaff53a03d05ab2ee002dbf401dd7627c7a3
-
-url: "https://bit-ranger.github.io/blog"
-imgrepo: "https://bit-ranger.github.io/blog/static/img"
-
-
-#url: "http://127.0.0.1:4000"
-#imgrepo: "http://127.0.0.1:4000/static/img"
-
+sass:
+    sass_dir: _sass
+    style: :compressed

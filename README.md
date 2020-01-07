@@ -1,36 +1,11 @@
-##[点我查看中文说明/Click here for Chinese instructions](https://github.com/bit-ranger/blog/blob/gh-pages/README_zh_CN.md)
+# Jekyll source for blog.lanyonm.org
+Read more here: [GitHub User Pages](https://help.github.com/articles/user-organization-and-project-pages).
 
-# Blog Address
+# License
+The following directories and their contents are Copyright Michael Lanyon.  You may not reuse anything therein without my permission:
 
-<https://bit-ranger.github.io/blog/>
+*   _posts/
+*   _drafts/
+*   images/ (unless otherwise noted in a watermark)
 
-
-# Must Modify
-
-## 1.swiftype
-
-This service provides the on-site search function.
-
-Service address: <https://swiftype.com/>.
-
-Documentation: <https://swiftype.com/documentation/site-search/crawler-quick-start/>
-
-After the setup is complete， you need to modify the `swiftype.searchId` in `_config.yml`.
-
-In your swiftype engine, go to `Install Search`, you will find the `swiftype.searchId`.
-
-```html
-<script type="text/javascript">
-...
-...
-  _st('install','swiftype.searchId','2.0.0');
-</script>
-```
-
-## 2.gitment
-
-This service provides the comment function.
-
-Service address： <https://github.com/imsun/gitment>.
-
-After the setup is complete， you need to modify the `gitment`  in `_config.yml`.
+All other directories and files are MIT Licensed.
