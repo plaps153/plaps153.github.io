@@ -10,7 +10,7 @@ categories: RxSwift
 
 Driver는 RxSwift 뿐만 아니라 RxCocoa까지 import해야 사용할 수 있습니다. 이유는 간단한데 RxCocoa [Traits](https://github.com/ReactiveX/RxSwift/blob/master/Documentation/Traits.md)의 한 종류이기 때문 입니다. 
 
-## Driver 정의
+# Driver 정의
 Rx사이트에서 Driver에 대해 [정의한 내용](https://github.com/ReactiveX/RxSwift/blob/master/Documentation/Traits.md#why-is-it-named-driver)은 다음과 같습니다.
 > This is the most elaborate trait. Its intention is to provide an intuitive way to write reactive code in the UI layer, or for any case where you want to model a stream of data Driving your application.
 
@@ -30,7 +30,7 @@ buttonEnableEvent
     .disposed(by: disposeBag)
 ```
 
-## Driver 특징
+# Driver 특징
 또한 Driver.swift에 다음과 같은 특징이 있습니다.
 
 > Trait that represents observable sequence with following properties:
@@ -55,7 +55,7 @@ buttonEnableEvent
 5. Stateful (이전 상태를 기록)하다. 즉 subscribe 동시에 직전의 결과가 있다면 반환한다.
 6. 계산된 결과들은 (elements) observer의 갯수 만큼 referenced count됩니다.
 
-## When to use?
+# When to use?
 그렇다면 과연 driver를 언제 사용해야 하는지 아래의 [예제](https://mrgamza.tistory.com/497)를 보면서 설명하겠습니다.
 
 ```swift
@@ -89,5 +89,5 @@ buttonEnableEvent.drive(onNext: { [weak self] (result) in
 })
 ```
 
-## 결론
+# 결론
 위의 정의 때 말씀드린바와 같이 driver는 UI를 구동시키기 위해 사용되는 observables로 이해하고 사용하면 될 것 같습니다.
