@@ -4,6 +4,7 @@ title:  "[RxSwift] RxSwift를 활용한 MVVM 구현"
 date:   2020-01-06
 categories: RxSwift, MVVM
 tags: [RxSwift, MVVM, Development]
+layout: default
 comments: true
 ---
 
