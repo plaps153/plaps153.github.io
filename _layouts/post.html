@@ -9,9 +9,8 @@ layout: default
     <p class="post-date" itemprop="datePublished" content="{{ page.date | date: "%Y-%m-%d" }}">{{ page.date | date_to_string }}</p>
     {% if page.comments %}<p><a href="{{ site.url }}{{ page.url }}#disqus_thread">Comments</a></p>{% endif %}
     {{ content }}
-    {% if page.comments %}<div id="disqus_thread"></div>{% endif %}
-    
     {% include disqus.html %}
+    {% if page.comments %}<div id="disqus_thread"></div>{% endif %}
   </div>
 </article>
 
