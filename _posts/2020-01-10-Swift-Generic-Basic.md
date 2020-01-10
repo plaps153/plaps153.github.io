@@ -1,3 +1,13 @@
+---
+layout: post
+comments: true
+title:  "[Swift] Generic Basic"
+description: "Swift generic basic"
+date:   2020-01-10
+category: Swift, Generic
+tags: [Swift, Generic, Development]
+---
+
 Generic 정리는 [Swift 공식문서]를 참고하였습니다.
 
 
