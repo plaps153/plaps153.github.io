@@ -1,3 +1,13 @@
+---
+layout: post
+comments: true
+title:  "[RxSwift][Operator] Buffer"
+description: "RxSwift Operator Buffer"
+date:   2020-01-10
+category: RxSwift, Operator, Buffer
+tags: [RxSwift, Operator, Buffer, Development]
+---
+
 Buffer는 일정한 시간동안 item을 bundle 안에 모았다가 방출합니다.
 
 ![buffer](http://reactivex.io/documentation/operators/images/Buffer.png)
