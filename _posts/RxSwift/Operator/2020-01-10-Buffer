@@ -1,0 +1,37 @@
+Buffer는 일정한 시간동안 item을 bundle 안에 모았다가 방출합니다.
+
+![buffer](http://reactivex.io/documentation/operators/images/Buffer.png)
+
+아래의 예를 보시죠.
+
+```swift
+Observable<Int>.interval(RxTimeInterval.seconds(1), scheduler: MainScheduler.instance)
+    .take(10)
+    .buffer(timeSpan: DispatchTimeInterval.seconds(3), count: 3, scheduler: MainScheduler.instance)
+    .subscribe(onNext: { (result) in
+        print(result)
+    })
+    .disposed(by: self.disposedBag)
+```
+위의 예제는 1초마다 한번씩 number string을 내 뱉는 interval을 사용하였습니다. **take(10)**를 써서 10개 까지만 받도록 하였구요.
+
+그리고 나서 나오는 buffer에 대해 설명을 하겠습니다.
+
+```swift
+buffer(timeSpan: DispatchTimeInterval.seconds(3), count: 3, scheduler: MainScheduler.instance)
+```
+
+1. Bundle을 구성하기 위해 3초간을 기다립니다. 
+2. 3초가 지났을 때는 원하는 count 3개가 모이지 않았더라도 방출합니다.
+3. 3초가 지나지 않았을 때, 원하는 count 3개가 모인다면 역시 방출합니다.
+
+위의 결과는 아래와 같습니다.
+```swift
+[0, 1]
+[2, 3, 4]
+[5, 6, 7]
+[8, 9]
+```
+
+0~9 즉 10개가 출력 되었고 맨 앞의 [0,1]은 3초가 되기까지 source 에서 2개가 방출되었기에 2개만 묶였습니다. 이후에는 1초에 1개씩 총 3개씩 묶였네요. 마지막 2개를 방출하고 observable은 disposed되기에 맨 뒤에는 2개만 방출되었습니다.
+
