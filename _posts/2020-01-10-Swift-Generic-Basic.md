@@ -1,6 +1,3 @@
-# [Swift] Generics Basic
-2020.01.09
-
 Generic 정리는 [Swift 공식문서]를 참고하였습니다.
 
 
