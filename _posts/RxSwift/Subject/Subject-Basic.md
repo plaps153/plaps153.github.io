@@ -1,3 +1,12 @@
+---
+layout: post
+comments: true
+title:  "[RxSwift][Subject] Subject Basic"
+date:   2020-01-10
+categories: RxSwift, Subject
+tags: [RxSwift, Subject, Development]
+---
+
 ReactiveX에서 Subject는 bridge 혹은 proxy라 불리웁니다. 왜 그렇게 불리는지 궁금했는데 Subject를 제대로 알고나니 그 의미가 좀 더 명확해 졌습니다.
 
 Bridge(다리), proxy(대리인)는 모두 둘 사이를 잇는 느낌이 강합니다. Subject는 때로는 observer로 동작하며 다른 observable을 구독(subscribe)하고, 때로는 observable로서 동작을 함으로서 또 다른 observer에게 subscribe 당하는 역할을 하게 됩니다. 둘 사이를 잇는 느낌이 나죠?
