@@ -11,7 +11,7 @@ tags: [Swift, Generic, Development]
 Generic 정리는 [Swift 공식문서]를 참고하였습니다.
 
 
-## Generics
+# Generics Basic
 Generic 은 Swift의 가장 강력한 기능 중 하나 입니다. 또한 대부분의 swift 라이브러리는 generic을 이용하여 구현되었습니다. 심지어 Array와 Dictionary도 모두 generic colleciton 입니다. Array는 Int만 저장하게 할 수도 있고 String만 저장하게 할 수도 있습니다. 또한 어떤 타입이든지 저장하게 할 수 도 있습니다. 
 
 ## Generic이 해결한 문제
@@ -53,7 +53,7 @@ func swapTwoDoubles(_ a: inout Double, _ b: inout Double) {
 
 비슷한 함수를 여러번 작성하는 것은 낭비 입니다. 이를 해결하기 위해 generic이 사용됩니다.
 
-# Generic functions
+## Generic functions
 
 두 객체를 바꾸는 함수를 generic으로 구현해 보겠습니다.
 
@@ -102,7 +102,7 @@ Type parameter를 braket사이에 적음으로서, 해당 타입을
 
 >단 type parameter는 camel case (맨 앞 대문자)로 사용하길 권하고 있는데 value와 구분을 짓기 위함입니다.
 
-# Generic type 확장
+## Generic type 확장
 
 Generic을 extension할 때에는 따로 extension 정의 옆에 (braket을 이용하여)  type을 적을 필요가 없습니다. Type parameter는 original type 정의 (Stack<Element>)에서 가져오기 때문이죠. 아래 Stack이라는 struct를 확장한다고 가정해 보겠습니다.
 
@@ -129,10 +129,10 @@ extension Stack {
 
 로 확장할 수 있습니다. topItem의 type anotation 으로 original의 Element를 가져다 쓸 수 있는 것을 확인할 수 있습니다.
 
-# Type Constraints
+## Type Constraints
 위의 swapTwoValue(_:_:)과 Stack의 type은 어떤 타입도 받을 수 있습니다. 하지만 때때로 위의 type에 제한 (constraints)을 걸어야 할 때가 있습니다. 예를 들어 보겠습니다.
 
-### Type constraints syntax
+## Type constraints syntax
 Dictionary를 생각해 보겠습니다. Dictionary의 key는 반드시 [hashable] 해야 합니다. 만약 custom dictionary를 구성할 때 아래와 같이 한다고 가정해 보겠습니다.
 
 ```swift
@@ -152,7 +152,7 @@ func MyCustomDictionary<T: Hashable, U: SomeProtocol>(key: T, value: U) {
 
 type **U**의 someProtocol은 제가 임의로 제약을 준 것입니다. 중요한 것은 type **T**의 제약 **Hashable** 입니다. 이로서 type T에는 hashable한 type만 허락되게 됩니다.
 
-### Type constraints in Action
+## Type constraints in Action
 실제 type constraints가 함수 내에서 어떻게 사용되는지를 살펴보겠습니다. 어렵지 않습니다. :)
 
 ```swift
@@ -287,7 +287,7 @@ struct Stack<Element>: Container {
 typealias Item = Element
 ```
 
-### Associate type에 Constraints(제약) 걸기
+## Associate type에 Constraints(제약) 걸기
 아래와 같이 Associate type에 constraints를 걸 수도 있습니다.
 
 ```swift
@@ -326,7 +326,7 @@ example()
 ```
 이 Container protocol을 따르기 위해서는 container의 Item 으로 사용되는 Element 도 반드시 Equatable을 준수해야 합니다. ()
 
-# Associated type을 지정함으로서 기존 type을 확장하기
+## Associated type을 지정함으로서 기존 type을 확장하기
 
 아래와 같이 기존 타입을 확장할 수 있습니다.
 
