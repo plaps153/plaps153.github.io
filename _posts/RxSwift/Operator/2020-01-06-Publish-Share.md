@@ -7,7 +7,7 @@ categories: RxSwift, Operator
 tags: [RxSwift, Publish, Share, Multicast, PublistSubject, Development]
 ---
 
-Publish, Share는 Observable의 items을 공유하기 위해 사용되는 operator입니다. 하나의 observable에서 emit되는 items을 여러 subscribe를 통해 공유하고 싶을 때 사용합니다. 자세히 살펴보겠습니다.
+Publish, Share는 Observable의 items을 여러 subsrcibe에 공유하기 위해 사용되는 operator입니다. 자세히 살펴보겠습니다.
 
 어떤 한 Observable을 subscribe 한다고 가정해 봅시다. 이 Observable은 network API 를 request하고 결과를 기다리는 observable이라고 해보죠.
 
@@ -240,7 +240,8 @@ Scope은 "item들이 언제 replay될 것인지"를 결정합니다. 종류는 �
 
 2. .forever : 말 그대로 subscriber의 갯수에 상관 없이 그 share stream이 유지되는 겁니다. subscribe 갯수가 1->0으로 되었다가 다시 subscribe가 생겨도 기존에 shared stream의 cache가 clear 되지 않아 기존 item이 배출되게 됩니다. 원하지 않는 데이터가 subscribe될 수 있으니 유의하여 사용해야 할 것 같습니다.
 
-<img src="https://miro.medium.com/max/1510/1*wKKemAmseKM6boREZ9i6fg.png" width="400" height="400" />
-<img src="https://miro.medium.com/max/1668/1*F7ud6kKEL3TPsbpjAfioTQ.png" width="400" height="400" />
- 
+[참고: Gett Engenierring - RxSwift: share()-ing is Caring]
+
+[참고: Gett Engenierring - RxSwift: share()-ing is Caring]: https://medium.com/gett-engineering/rxswift-share-ing-is-caring-341557714a2d
+
 [Shai Mishali]: https://medium.com/gett-engineering/rxswift-share-ing-is-caring-341557714a2d
