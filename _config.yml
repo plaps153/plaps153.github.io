@@ -1,12 +1,12 @@
-name: Michael Lanyon's Blog
+name: Plaps's Blog
 url: 'plaps153.github.io'
-description: 'Notes and thoughts from LanyonM'
+description: 'Notes and thoughts'
 
 exclude: [Gemfile, Gemfile.lock, README.md]
 markdown: kramdown
 
-author: 'Michael Lanyon'
-disqus_shortname: lanyonm
+author: 'Hwangho Kim'
+disqus_shortname: plaps153
 google_analytics: UA-42209870-1
 
 gems:
