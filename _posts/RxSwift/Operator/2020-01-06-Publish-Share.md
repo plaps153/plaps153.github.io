@@ -69,7 +69,7 @@ Second subscribe: #otherResponse
 
 # Publish
 
-![publish_image](http://reactivex.io/documentation/operators/images/publishConnect.c.png)
+![publish_image](publishConnect.png)
 
 Publish에 대해 알아보기 전에 먼저 publish가 어떤식으로 구현되어 있는지부터 살펴봐야 겠습니다.
 
@@ -146,7 +146,7 @@ Second subscribe: #someRespnse
 ### refCount
 Publish를 설명할 때 refCount를 설명하지 않을 수 없습니다.
 
-![refCount](http://reactivex.io/documentation/operators/images/publishRefCount.c.png)
+![refCount](publishRefCount.png)
 
 publish와 함께 사용되는 refCount operator는 첫 번째 subscribe가 실행될 때 자동으로 connect operator를 붙여 줍니다. 따라서 manual하게 connect operator를 호출할 필요가 없습니다. 즉 connectable observable을 일반적인 observable의 동작과 유사하게 만듭니다. (아시다시피 일반적인 observable은 subscribe시에 items를 emit합니다.)
 
@@ -240,8 +240,14 @@ Scope은 "item들이 언제 replay될 것인지"를 결정합니다. 종류는 �
 
 2. .forever : 말 그대로 subscriber의 갯수에 상관 없이 그 share stream이 유지되는 겁니다. subscribe 갯수가 1->0으로 되었다가 다시 subscribe가 생겨도 기존에 shared stream의 cache가 clear 되지 않아 기존 item이 배출되게 됩니다. 원하지 않는 데이터가 subscribe될 수 있으니 유의하여 사용해야 할 것 같습니다.
 
-[참고: Gett Engenierring - RxSwift: share()-ing is Caring]
+> 참고로 share()는 share(replay: 0, scope: .whileConnected)와 동일합니다. 
 
-[참고: Gett Engenierring - RxSwift: share()-ing is Caring]: https://medium.com/gett-engineering/rxswift-share-ing-is-caring-341557714a2d
+# 결론
+Publish, share 모두 emit되는 item을 공유한다는 공통분모가 있었지만, Item emit을 위해서 publish는 connect operator를 필요로 하였고, 일반적인 observable과 같이 동작하게 하는 refCount operator도 함께 살펴봤습니다.
+
+Share는 publish와 다르게 ReplaySubject를 사용함으로서 기 배출된 item을 subscribe시 얻을 수 있었습니다.
+
+Publish, share는 [이 사이트: Gett Engenierring - RxSwift: share()-ing is Caring](https://medium.com/gett-engineering/rxswift-share-ing-is-caring-341557714a2d)를 참고하였습니다.
+
 
 [Shai Mishali]: https://medium.com/gett-engineering/rxswift-share-ing-is-caring-341557714a2d
