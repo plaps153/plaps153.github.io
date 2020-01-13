@@ -1,3 +1,12 @@
+---
+layout: post
+comments: true
+title:  "[RxSwift][Subject] Subject indepth"
+date:   2020-01-13
+categories: RxSwift, Subject
+tags: [RxSwift, Subject, Development]
+---
+
 RxSwift에서 제공하는 [Subject]의 종류는 다음과 같습니다.
 
 1. PublishSubject
