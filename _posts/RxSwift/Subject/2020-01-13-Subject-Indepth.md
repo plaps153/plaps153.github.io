@@ -17,7 +17,7 @@ RxSwift에서 제공하는 [Subject]의 종류는 다음과 같습니다.
 각각 하나씩 살펴보도록 하겠습니다.
 
 # 1. PublishSubject
-![publishSubject](http://reactivex.io/documentation/operators/images/S.PublishSubject.png)
+![publishSubject](https://t3.daumcdn.net/thumb/R720x0/?fname=http://t1.daumcdn.net/brunch/service/user/1YN0/image/MBBplT-FTxASbHX2GGZCXI-B58g.png)
 
 각 Observer가 subscribe한 시점부터의 item을 subscribe할 수 있습니다. Subscribe 이전의 값은 얻을 수 없습니다.
 만약 subscribe 이후 error가 발생했다면 당연히 error를 배출합니다.
