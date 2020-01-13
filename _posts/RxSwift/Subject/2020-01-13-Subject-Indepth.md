@@ -138,6 +138,7 @@ self.behaviorSubject
 ```
 
 # 4. AsyncSubject
+
 ![AsyncSubject](AsyncSubject.png)
 
 AsyncSubject는 subscribe 후에 아무 값도 배출하고 있지 않다가 해당 subject가 완료되면 마지막 값을 배출하게 됩니다.
