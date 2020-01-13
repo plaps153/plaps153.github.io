@@ -51,7 +51,7 @@ self.publishSubject
 ```
 
 # 2. ReplaySubject
-![RelaySubject](ReplaySubject.png)
+![RelaySubject](https://t1.daumcdn.net/cfile/tistory/997395345C1F6A600F)
 
 ReplaySubject는 subscribe시점과 관계 없이 buffer에 저장되어 있는 최근 n개 + 이후 배출되는 item에 대한 값을 얻을 수 있습니다.
 
@@ -95,7 +95,7 @@ self.replaySubject
 ```
 
 # 3. BehaviorSubject
-![BehaviorSubject](BehaviorSubject.png)
+![BehaviorSubject](https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile22.uf.tistory.com%2Fimage%2F99B0A6455C95BA8D0A1932)
 
 BehaviorSubject를 subscribe하면 가장 최근에 발행한 item을 전달합니다. 만약 아무 item도 전달하지 않았다면 초기값을 전달합니다. 
 
@@ -139,7 +139,7 @@ self.behaviorSubject
 
 # 4. AsyncSubject
 
-![AsyncSubject](AsyncSubject.png)
+![AsyncSubject](https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&fname=http%3A%2F%2Fcfile30.uf.tistory.com%2Fimage%2F997DC9455C95BA8C0C6593)
 
 AsyncSubject는 subscribe 후에 아무 값도 배출하고 있지 않다가 해당 subject가 완료되면 마지막 값을 배출하게 됩니다.
 
