@@ -17,7 +17,7 @@ RxSwift에서 제공하는 [Subject]의 종류는 다음과 같습니다.
 각각 하나씩 살펴보도록 하겠습니다.
 
 # 1. PublishSubject
-![publishSubject](http://reactivex.io/documentation/operators/images/S.PublishSubject.png)
+![publishSubject](publishSubject.png)
 
 각 Observer가 subscribe한 시점부터의 item을 subscribe할 수 있습니다. Subscribe 이전의 값은 얻을 수 없습니다.
 만약 subscribe 이후 error가 발생했다면 당연히 error를 배출합니다.
@@ -51,7 +51,7 @@ self.publishSubject
 ```
 
 # 2. ReplaySubject
-![](http://reactivex.io/documentation/operators/images/S.ReplaySubject.png)
+![](ReplaySubject.png)
 
 ReplaySubject는 subscribe시점과 관계 없이 buffer에 저장되어 있는 최근 n개 + 이후 배출되는 item에 대한 값을 얻을 수 있습니다.
 
@@ -95,7 +95,7 @@ self.replaySubject
 ```
 
 # 3. BehaviorSubject
-![](http://reactivex.io/documentation/operators/images/S.BehaviorSubject.png)
+![](BehaviorSubject.png)
 
 BehaviorSubject를 subscribe하면 가장 최근에 발행한 item을 전달합니다. 만약 아무 item도 전달하지 않았다면 초기값을 전달합니다. 
 
@@ -138,7 +138,7 @@ self.behaviorSubject
 ```
 
 # 4. AsyncSubject
-![](http://reactivex.io/documentation/operators/images/S.AsyncSubject.png)
+![](AsyncSubject.png)
 
 AsyncSubject는 subscribe 후에 아무 값도 배출하고 있지 않다가 해당 subject가 완료되면 마지막 값을 배출하게 됩니다.
 
