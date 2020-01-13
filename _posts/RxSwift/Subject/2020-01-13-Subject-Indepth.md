@@ -164,4 +164,4 @@ AsyncSubject는 마지막 결과만 리턴하는 이유로 굳이 3초 후에 su
 위의 결과를 보면 약 10초 후 complete이 될 때 마지막 결과 (9)를 배출하고 종료하는 것을 볼 수 있습니다.
 
 
-[Subject]: lilnk
+[Subject]: 2020-01-10-Subject-Basic.md
