@@ -1,0 +1,62 @@
+
+```swift
+import Foundation
+import Glibc
+
+// you can write to stdout for debugging purposes, e.g.
+// print("this is a debug message")
+
+public func solution(_ K : Int, _ M : Int, _ A : inout [Int]) -> Int {
+    // write your code in Swift 4.2.1 (Linux)
+    
+    func solution() -> Int {
+        // 먼저 large sum은 아래 가운데 있다고 생각하자. 사실이기도 하고
+        
+        var minV = 0
+        var maxV = 0
+        
+        for (_,e) in A.enumerated() {
+            minV = max(minV, e)
+            maxV += e
+        }
+        
+        var result = 0
+        
+        // 루프를 돌면서 우리가 정한 mid값을 통해 실제 large number를 찾아가자.
+        
+        while (minV <= maxV) {
+            let mid = (maxV + minV) / 2
+
+            if divide(mid, k:K, a:A) == true {
+                maxV = mid - 1
+                result = mid
+            } else {
+                minV = mid + 1
+            }
+        }
+        
+        return result
+    }  
+    
+    func divide(_ mid: Int, k: Int, a: [Int]) -> Bool {
+    
+        var sum = 0
+        var mK = k
+        for (i,e) in a.enumerated() {
+            if sum + e > mid {
+                sum = e
+                mK -= 1
+            } else {
+                sum += e
+            }
+            
+            if mK == 0 {
+                return false
+            } 
+        }
+        
+        return true
+    }
+    
+    return solution()
+}
