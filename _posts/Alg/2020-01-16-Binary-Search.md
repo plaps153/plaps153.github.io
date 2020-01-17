@@ -4,7 +4,7 @@ comments: true
 title:  "[Alg] Binary search"
 date:   2020-01-16
 categories: Algorithm, Binary search
-tags: [RxSAlgorithmwift, Binary search]
+tags: [Algorithm, Binary search]
 ---
 
 개발을 10년 넘게 해 왔지만 항상 알고리즘을 공부할 때마다 새로운 이유는 무엇일까요?? 그냥 제대로 정리를 해 놓지 않아서 그런 것 같다는 생각이 듭니다. 이번에는 확실히 정리한다는 각오로 포스팅을 시작합니다.
