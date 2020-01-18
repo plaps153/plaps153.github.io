@@ -16,6 +16,9 @@ Greedy 알고리즘은 단순하면서도 직관적인 알고리즘 입니다. G
 # Greedy Algorithm
 
 ## Not suited problems
+
+아래 두 problem은 대표적으로 Greedy algorithm이 적용되지 않는 problem 입니다. 바로 Graph에서 최적 해를 찾는 문제와 Kanpsack problem 입니다. 한번 살펴 보겠습니다.
+
 ### Graph
 <img src="https://d18l82el6cdm1i.cloudfront.net/uploads/xlck8z42EM-greedy-search-path-example.gif">
 
@@ -38,9 +41,12 @@ Kapsack problem도 Greedy algorithm이 적용되지 않는 케이스 중 하나�
 이제 Greedy algorithm이 소위 먹히는?! algorithm에 대해서 보겠습니다.
 
 ## Well suited problem
+
+아래 두 problem은 Greedy algorithm을 사용해 최적해를 얻어낼 수 있습니다.
+
 ### Huffman Code
 
-Huffman Code:(https://brilliant.org/wiki/huffman-encoding/) 가변길이 string으로 symbol을 표현하는 방식입니다. 자주 나오는 단어에는 짧은 bit으로 encoding하고, 드물게 나오는 단어에는 긴 bit으로 encoding을 해 줍니다.
+Huffman Code:(https://brilliant.org/wiki/huffman-encoding/) 가변길이(Variable-length) encoding으로 symbol을 표현하는 방식입니다. 자주 나오는 단어에는 짧은 bit으로 encoding하고, 드물게 나오는 단어에는 긴 bit으로 encoding을 해 줍니다.
 
 주의해야 할 것이 표현되는 encoding scheme이 모호하지 말아야 한다는 것인데요. 아래 예를 한번 보겠습니다.
 
@@ -66,11 +72,15 @@ DC
 
 encoding 결과 둘 다 똑같은 bits로 encoding 되었습니다. 가변길이 encoding (variable-length encoding)은 이러한 모호성을을 갖기 쉽습니다. 따라서 encoding bits를 생성할 때 주의를 기울여야 하는데요. 이 때 사용되는 algorithm이 Greedy algorithm 입니다.
 
-Huffman은 greedy algorithm을 이용해, 자주 나오는 단어들에는 적은 양의 bits를, 적게 나오는 단어들에 대해서는 상대적으로 많은 bits가 할당되는 algorithm을 만들어 내었습니다. [Huffman tree]:(https://brilliant.org/problems/encoding-trees-1/#)를 만드는 방법은 링크를 참고해 주세요.
+Huffman은 greedy algorithm을 이용해, 
+
+1. 자주 나오는 단어들에는 적은 양의 bits를, 적게 나오는 단어들에 대해서는 상대적으로 많은 bits가 할당되는 algorithm을 만들어 낼 수 있습니다. [Huffman prefix tree]:(https://brilliant.org/problems/encoding-trees-1/#)를 만드는 방법은 링크를 참고해 주세요.
+2. 또한 각 tree에서 나오는 prefix 값은 다른 prefix 값들과 반드시 다른 값이 나오게 되고 위의 모호성 문제도 해결됩니다. 
 
 ### Dijkstra's algorithm
 
-노드와 노드 사이의 shortest path를 구하는 알고리즘이다. 방문하지 않은 노드는 거리를 모르므로  각 노드의 shortest path는 무한대 표시로 해 놓는다. 시작 노드에서 각 노드의 거리를 검색하고 그 노드에 shortest path를 명시해 놓는다. 그 다음 가장 짧은 노드로 이동하고 그곳에 이동한 거리를 적는다. 또 그 노드에서 가장 짧은 노드로 이동한다. 이 때 그 노드에 적힌 
+노드와 노드 사이의 shortest path를 구하는 알고리즘 입니다. 여기에서도 Greedy algorithm 이 사용될 수 있는데요. 
+
 ![Dijistra's algorithm](https://d18l82el6cdm1i.cloudfront.net/uploads/X7rvS7Kbgc-dijkstra_animation.gif)
 
 
