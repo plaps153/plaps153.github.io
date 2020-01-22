@@ -9,7 +9,7 @@ tags: [Algorithm, Greedy search]
 
 (Codility 내용 기반으로 포스트를 작성합니다. Greedy altorighm 관련한 좋은 자료는 아래를 참고 부탁 드립니다.)
 
-- Brilliant:(https://brilliant.org/wiki/greedy-algorithm/)
+- [Brilliant](https://brilliant.org/wiki/greedy-algorithm/)
 
 Greedy 알고리즘은 단순하면서도 직관적인 알고리즘 입니다. Greedy 알고리즘은 모든 problem에 통하지는 않지만 Huffman encoding이라든지, Dijkstra's algorithm에서 shortest path를 찾는 경우 훌륭하게 동작합니다.
 
@@ -93,7 +93,7 @@ Huffman은 greedy algorithm을 이용해,
 
 4. 이제 목적지 까지 도달한 shortest path중 가장 짧은 것을 선택하면 됩니다.
 
-Dijkstra가 이 알고리즘을 고안하는데 걸린 시간은 단 5분이라는 얘기가 있더군요. 알고리즘을 swift로 작성하면서 많은 자괴감(?)이 들었습니다. 뭐 물론 말로 설명하는 것과 source를 짜는 것은 엄연히 다르다는 생각을 하며 스스로를 위로했습니다. [Dijkstra's algorithm for swift]:()에서 좀 더 깊이있게 살펴보겠습니다.
+Dijkstra가 이 알고리즘을 고안하는데 걸린 시간은 단 5분이라는 얘기가 있더군요. 알고리즘을 swift로 작성하면서 많은 자괴감(?)이 들었습니다. 뭐 물론 말로 설명하는 것과 source를 짜는 것은 엄연히 다르다는 생각을 하며 스스로를 위로했습니다. [Dijkstra's algorithm for swift]()에서 좀 더 깊이있게 살펴보겠습니다.
 
 
 
