@@ -85,11 +85,9 @@ Huffman은 greedy algorithm을 이용해,
 
 1. 출발 노드와 연결된 노드들 중 가장 거리가 짧은 노드를 선택하여 이동합니다. (Greedy) 하지만 위와 같이 각 노드들에서 짧은 path만 선택하여 가다보면, 즉 Node(1) -> Node(2) -> Node(3) 으로 이동하면 Node(3)에 도착하기 까지 path의 총 weight의 합은 17이 됩니다. 하지만 Node(1) -> Node(3)은 9로서 훨씬 가깝습니다. 이 때는 Node(1) -> Node(3)이 shortest path가 됩니다.
 
-2. Node(3) -> Node(6)으로 가보죠.
+2. Node(3) -> Node(6)으로 가보죠. 9 + 2 = 11이니 Node(1) -> Node(6)의 14보다는 작네요. 일단 Node(6)까지의 shortest path는 Node(1) -> Node(3) -> Node(6) 입니다. 
 
 > Node(3) -> Node(4)는 Node(3) -> Node(6)보다 거리가 길어서 우선 선택되지 못하였습니다. 
-
-9 + 2 = 11이니 Node(1) -> Node(6)의 14보다는 작네요. 일단 Node(6)까지의 shortest path는 Node(1) -> Node(3) -> Node(6) 입니다. 
 
 3. Node(6) 에서 Node(5) 길이 있고 그 weight은 9 입니다. 일단 목적지 Node(5)에 도착했습니다. 끝이 아닙니다. 이제 순회하지 않은 나머지 최선이 아닌, 차선책이었던 Node들에 대해서 동일하게 위의 1번과 같이 그 다음 짧은 노드를 선택하여 목적지까지 도착하게끔 합니다.
 
