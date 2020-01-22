@@ -93,7 +93,7 @@ Huffman은 greedy algorithm을 이용해,
 
 4. 이제 목적지 까지 도달한 shortest path중 가장 짧은 것을 선택하면 됩니다.
 
-Dijkstra가 이 알고리즘을 고안하는데 걸린 시간은 단 5분이라는 얘기가 있더군요. 알고리즘을 swift로 작성하면서 많은 자괴감(?)이 들었습니다. 뭐 물론 말로 설명하는 것과 source를 짜는 것은 엄연히 다르다는 생각을 하며 스스로를 위로했습니다. [Dijkstra's algorithm for swift]()에서 좀 더 깊이있게 살펴보겠습니다.
+Dijkstra가 이 알고리즘을 고안하는데 걸린 시간은 단 5분이라는 얘기가 있더군요. 알고리즘을 swift로 작성하면서 많은 자괴감(?)이 들었습니다. 뭐 물론 말로 설명하는 것과 source를 짜는 것은 엄연히 다르다는 생각을 하며 스스로를 위로했습니다. [Dijkstra's algorithm for swift](_posts/Alg/2020-01-22-Dijkstra's Algorithm.md)에서 좀 더 깊이있게 살펴보겠습니다.
 
 
 
