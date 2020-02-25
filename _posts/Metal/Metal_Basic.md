@@ -32,7 +32,11 @@ tags: [Metal]
 ### OpenGL vs Metal
 [OpenGL]은 [cross-language], [cross-platform] 입니다. 즉 동일한 문법의 언어로 다양한 platform에서 graphic관련 작업을 할 수 있게 도와주는 API 입니다. 이와는 반대로 Metal API는 Swift, Objective-C 에 의해 호출될 수 있는 객체지향 API 입니다. 물론 [Apple processor] 에서만 동작하는 API지요.
 
-또한 Metal은 
+또한 Metal은 다음과 같은 특징을 가집니다.
+
+1. Low-overhead interface
+- Metal은 성능에 있어 병목현상을 제거하도록 설계되었습니다. 예를들어 [state validation]과 같은 경우 입니다.
+- Metal framework는 buffer와 texture 객체
 ### Draw call
 
 Metal은 low-level,low-overhead HW-accelerated 3D 그래픽 엔진 입니다. Metal과 GPU간의 layer는 OpenGL의 그것과는 다르게 상대적으로 아주 얇습니다. 그 의미는 OpenGL에 비해 Metal이 overhead가 적다는 이야기 이겠지요. 아래 그림을 한번 보겠습니다.
@@ -54,7 +58,7 @@ Metal의 draw call time은 OpenGL과 비교할 때 최대 약 10배로 많다고
 
 ## MetalKit
 
-
+[state validation]: https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glValidateProgram.xml
 [draw call]: 
 [OpenGL]: https://en.wikipedia.org/wiki/OpenGL
 [Craig Federighi]: https://www.apple.com/kr/leadership/craig-federighi/
