@@ -15,7 +15,7 @@ tags: [Metal]
 
 # 1. 들어가면서
 
-이번 Basic에는 아래 3개의 case에 대해서 다뤄보도록 하겠습니다. 
+이번 Basic에는 아래 2개의 case에 대해서 다뤄보도록 하겠습니다. 
 
 1. What is the Metal
 2. What is the MetalKit
@@ -60,9 +60,9 @@ App과 Core간 상대적으로 두꺼운 API layer를 가진 OpenGL abstraction 
 
 <p align="center">
   <img src="CPU_GPU_pipeline-768x462.png" />
-  <img src="https://donghyun53.net/wp-content/uploads/2017/03/Metal_advantage-1024x680.png" width="325" height="255" />
+  <img src="Metal_advantage-1024x680.png" />
   
-  <em>image_caption</em>
+  <em>[출처: Metal API가 OpenGL보다 효율적인 이유]</em>
 </p>
 
 
@@ -72,8 +72,10 @@ Metal의 draw call time은 OpenGL과 비교할 때 최대 약 10배로 많다고
 
 
 
-## MetalKit
+## MetaKit
 
+
+[출처: Metal API가 OpenGL보다 효율적인 이유]: http://donghyun53.net/metal-api%EA%B0%80-opengl%EB%B3%B4%EB%8B%A4-%ED%9A%A8%EC%9C%A8%EC%A0%81%EC%9D%B8-%EC%9D%B4%EC%9C%A0/
 [shader compile]: https://www.khronos.org/opengl/wiki/Shader_Compilation
 [state validation]: https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glValidateProgram.xml
 [draw call]: 
