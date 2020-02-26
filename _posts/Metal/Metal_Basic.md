@@ -35,8 +35,16 @@ tags: [Metal]
 또한 Metal은 다음과 같은 특징을 가집니다.
 
 1. Low-overhead interface
-- Metal은 성능에 있어 병목현상을 제거하도록 설계되었습니다. 예를들어 [state validation]과 같은 경우 입니다.
-- Metal framework는 buffer와 texture 객체
+- Metal은 성능에 있어 소위 숨겨진 병목현상들을 제거하도록 설계되었습니다. 예를들어 [state validation]과 같은 경우 입니다.
+2. 메모리 관리
+- Metal framework는 GPU memory에 할당되어 있는 buffer와 texture 객체를 다룹니다. Texture 객체는 특별한 pixel format을 가지고 있고 texture image 및 attachments등에 사용될 수 있습니다.
+3. Graphic과 Compute operations에 대한 통합지원
+- Metal은 graphic과 compute operation에 동일한 data structure 와 resource를 사용합니다. (Textures, buffers, commmand queue 등) 게다가 메탈의 shading language는 graphic과 compute function을 동시에 지원합니다. 또한 Metal framework은 runtime interface - graphic shader - compute function간 자원 공유를 가능하게 합니다.
+4. Precompiled shader
+- Metal의 shader는 buildtime에 compile되고 runtime시에 load됩니다. (물론 runtime시에 compile도 지원합니다.)
+
+*** Metal app은 Metal command를 background에서 실행할 수 없습니다. 그럴 경우 앱은 종료되게 됩니다. ***
+
 ### Draw call
 
 Metal은 low-level,low-overhead HW-accelerated 3D 그래픽 엔진 입니다. Metal과 GPU간의 layer는 OpenGL의 그것과는 다르게 상대적으로 아주 얇습니다. 그 의미는 OpenGL에 비해 Metal이 overhead가 적다는 이야기 이겠지요. 아래 그림을 한번 보겠습니다.
@@ -46,9 +54,17 @@ Metal은 low-level,low-overhead HW-accelerated 3D 그래픽 엔진 입니다. Me
   <img src="https://architosh.com/wp-content/uploads/2015/06/metal-2.jpg" width="325" height="255" />
 </p>
 
-상대적으로 두꺼운 layer를 가진 OpenGL abstraction layer는 다양한 플랫폼에서 OpenGL API를 사용할 수 있도록 하는 잇점이 있습니다. 하지만 이로인해 발생하는 가장 큰 문제점은 바로 상당한 양의 overhead가 발생한다는 것입니다.
+App과 Core간 상대적으로 두꺼운 API layer를 가진 OpenGL abstraction layer는 다양한 플랫폼에서 OpenGL API를 사용할 수 있도록 하는 잇점이 있습니다. 하지만 이로인해 발생하는 가장 큰 문제점은 바로 상당한 양의 overhead가 발생한다는 것입니다.
 
-이 overhead로 인해 발생하는 가장 큰 문제점은 바로 [draw call] throughput이 떨어진다는 것입니다. Draw call은 CPU가 GPU에게 어떤 object를 한 frame 기간동안 render하라고 명령하는 것이라 볼 수 있습니다. 이미 CPU는 고성능의 GPU를 따라가기 벅차고 주어진 시간동안 high level graphics 를 모두 수행하는 것도 벅차게 됩니다. 이러한 overhead가 발생하는 가장 큰 이유는 draw call이 진행될 때 shader compile과 state validation이 CPU에서 일어나기 때문입니다. 이 때문에 이 기간동안 수행될 수 있는 physics processing과 기타 object를 더 그릴 수 있는 시간이 줄어들게 됩니다.
+이 overhead로 인해 발생하는 가장 큰 문제점은 바로 [draw call] throughput이 떨어진다는 것입니다. Draw call은 CPU가 GPU에게 어떤 object를 한 frame 기간동안 render하라고 명령하는 것이라 볼 수 있습니다. 또한 이미 CPU는 고성능의 GPU를 따라가기 벅차고 주어진 시간동안 high level graphics 를 모두 처리하는 것도 벅차게 됩니다. 이러한 overhead가 발생하는 가장 큰 이유는 기존 OpenGL은 draw call이 진행될 때 [shader compile]과 [state validation]이 CPU에서 일어나기 때문입니다. 이 때문에 CPU는 빠듯하게 작업을 수행하게 되며 여유시간이 없으므로 physics processing과 기타 object를 더 그릴 수 있는 시간이 자연스럽게 줄어들게 됩니다.
+
+<p align="center">
+  <img src="https://donghyun53.net/wp-content/uploads/2017/03/CPU_GPU_pipeline-1024x616.png" width="325" height="255" />
+  <img src="https://donghyun53.net/wp-content/uploads/2017/03/Metal_advantage-1024x680.png" width="325" height="255" />
+  
+  <em>image_caption</em>
+</p>
+
 
 Metal의 draw call time은 OpenGL과 비교할 때 최대 약 10배로 많다고 합니다. 그만큼 GPU의 idle time도 줄일 수 있고, CPU도 다른 목적으로 더 사용할 수 있게 됩니다.
 
@@ -58,6 +74,7 @@ Metal의 draw call time은 OpenGL과 비교할 때 최대 약 10배로 많다고
 
 ## MetalKit
 
+[shader compile]: https://www.khronos.org/opengl/wiki/Shader_Compilation
 [state validation]: https://www.khronos.org/registry/OpenGL-Refpages/gl2.1/xhtml/glValidateProgram.xml
 [draw call]: 
 [OpenGL]: https://en.wikipedia.org/wiki/OpenGL
