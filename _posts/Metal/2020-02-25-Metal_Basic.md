@@ -17,11 +17,10 @@ tags: [Metal]
 
 이번 Basic에는 아래 2개의 case에 대해서 다뤄보도록 하겠습니다. 
 
-1. What is the Metal
-  a. OpenGL vs Metal
-  b. Draw call
-
-2. What is the MetalKit
+* What is the Metal
+  * OpenGL vs Metal 
+  * Draw call
+* What is the MetalKit
 
 
 일단 주제만 나열했는데도 정신이 혼미해지고 당이 딸리기 시작하네요. 그만큼 제게는 무거운 주제인 것 같습니다. 하지만... 시작이 반이라 하였으니 시작해 보도록 하죠. (이미 반 했습니다! ㅎㅎ)
