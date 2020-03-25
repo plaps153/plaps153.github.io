@@ -20,6 +20,7 @@ tags: [Metal]
 1. What is the Metal
   a. OpenGL vs Metal
   b. Draw call
+
 2. What is the MetalKit
 
 
