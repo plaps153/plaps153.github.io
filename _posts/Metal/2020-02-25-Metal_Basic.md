@@ -61,9 +61,8 @@ App과 Core간 상대적으로 두꺼운 API layer를 가진 OpenGL abstraction 
 
 이 overhead로 인해 발생하는 가장 큰 문제점은 바로 draw call throughput이 떨어진다는 것입니다. Draw call은 CPU가 GPU에게 어떤 object를 한 frame 기간동안 render하라고 명령하는 것이라 볼 수 있습니다. 또한 이미 CPU는 고성능의 GPU를 따라가기 벅차고 주어진 시간동안 high level graphics 를 모두 처리하는 것도 벅차게 됩니다. 이러한 overhead가 발생하는 가장 큰 이유는 기존 OpenGL은 draw call이 진행될 때 [shader compile][11]과 [state validation][10]이 CPU에서 일어나기 때문입니다. 이 때문에 CPU는 빠듯하게 작업을 수행하게 되며 여유시간이 없으므로 physics processing과 기타 object를 더 그릴 수 있는 시간이 자연스럽게 줄어들게 됩니다.
 
-
-  <img align = "center" src="https://github.com/plaps153/plaps153.github.io/blob/master/_posts/Metal/CPU_GPU_pipeline-768x462.png" />
-  <img align = "center" src="https://github.com/plaps153/plaps153.github.io/blob/master/_posts/Metal/Metal_advantage-1024x680.png" />
+<img align = "center" src="CPU_GPU_pipeline-768x462.png" />
+<img align = "center" src="Metal/Metal_advantage-1024x680.png" />
 [출처: Metal API가 OpenGL보다 효율적인 이유][14]
 
 
