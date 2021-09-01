@@ -1,12 +1,16 @@
 {
-    "applinks": {
-        "apps": [],
-        "details": [{
-            "appIDs": ["35GFNMP4E3.com.kbsec.spec"],
-            "components": [{
-                "/": "/appstore/",
-                "comment": "Matches any URL whose path starts with /appstore"
-            }]
-        }]
-    }
+	"applinks": {
+		"apps": [],
+		"details": [{
+			"appID": "35GFNMP4E3.com.kbsec.spec",
+			"paths": [
+				"/appstore/"
+			],
+			"appIDs": ["35GFNMP4E3.com.kbsec.spec"],
+			"components": [{
+				"/": "/appstore/",
+				"comment": "Matches any URL whose path starts with /appstore"
+			}]
+		}]
+	}
 }
