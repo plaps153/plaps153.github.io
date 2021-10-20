@@ -4,7 +4,7 @@
 		"details": [{
 			"appIDs": ["35GFNMP4E3.com.kbsec.spec"],
 			"components": [{
-					"/": "/appstore/",
+					"/": "/appstore/*",
 					"comment": "Matches any URL whose path starts with /appstore"
 				},
 				{
@@ -12,7 +12,7 @@
 					"comment": "Password reset"
 				},
 				{
-					"/": "/pinplay/invitation/ios",
+					"/": "/pinplay/invitation/ios/*",
 					"comment": "Pinplay invitation"
 				}
 			]
