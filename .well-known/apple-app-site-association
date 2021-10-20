@@ -4,7 +4,7 @@
 		"details": [{
 			"appIDs": ["35GFNMP4E3.com.kbsec.spec"],
 			"components": [{
-					"/": "/appstore/*",
+					"/": "*",
 					"comment": "Matches any URL whose path starts with /appstore"
 				},
 				{
